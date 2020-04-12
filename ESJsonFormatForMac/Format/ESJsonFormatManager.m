@@ -42,7 +42,7 @@
  *  @param value     JSON里面key对应的NSDiction或者NSArray
  *  @param classInfo 类信息
  *
- *  @return
+ *  @return property String
  */
 + (NSString *)formatObjcWithKey:(NSString *)key value:(NSObject *)value classInfo:(ESClassInfo *)classInfo{
     NSString *qualifierStr = @"copy";
@@ -52,6 +52,7 @@
         key = [key uppercaseString];
     }
     if ([value isKindOfClass:[NSString class]]) {
+        qualifierStr = @"strong";
         return [NSString stringWithFormat:@"@property (nonatomic, %@) %@ *%@;",qualifierStr,typeStr,key];
     }else if([value isKindOfClass:[@(YES) class]]){
         //the 'NSCFBoolean' is private subclass of 'NSNumber'
@@ -113,7 +114,7 @@
  *  @param value     JSON里面key对应的NSDiction或者NSArray
  *  @param classInfo 类信息
  *
- *  @return
+ *  @return property String
  */
 + (NSString *)formatSwiftWithKey:(NSString *)key value:(NSObject *)value classInfo:(ESClassInfo *)classInfo{
     NSString *typeStr = @"String?";
